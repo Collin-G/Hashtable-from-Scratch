@@ -1,3 +1,4 @@
+#include <iostream>
 #include "token.hpp"
 #include "slot.hpp"
 
@@ -7,7 +8,15 @@ Slot::Slot(){
     _tail = nullptr;
 
 }
-void Slot::append(Token * tok){
+std::string Slot::append(Token * tok){
+    Token * cur = _head;
+    
+    while(cur){
+        if (cur->get_word() == tok->get_word()){
+            return "failure";
+        }
+
+    }  
     if (_tail = nullptr){
         _tail = tok;
         _head = tok;
@@ -16,6 +25,7 @@ void Slot::append(Token * tok){
         _tail->set_next(tok);
         _tail = tok;
     }
+    return "success";
 }
 Token * Slot::get_head(){
     return _head;
