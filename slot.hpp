@@ -1,3 +1,6 @@
+#ifndef SLOT_HPP
+#define SLOT_HPP
+
 class Token;
 class Slot{
     public:
@@ -11,3 +14,4 @@ class Slot{
     
     
 };
+#endif

@@ -3,6 +3,7 @@
 Token::Token(std::string word, int index){
     _word = word;
     _index = index;
+    _next = nullptr;
 }
 Token * Token::get_next(){
     return _next;
