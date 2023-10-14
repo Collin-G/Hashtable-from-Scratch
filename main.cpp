@@ -7,7 +7,7 @@ int main(){
     std::string word{};
     int val1{};
     int val2{};
-    Table * hashtable;
+    Table * hashtable{};
     while(std::cin >> cmd){
         if (cmd == "M"){
             std::cin>>val1;
@@ -58,6 +58,8 @@ int main(){
         }
         
     }
+    // delete hashtable;
+    // hashtable = nullptr;
    
     
     return 0;

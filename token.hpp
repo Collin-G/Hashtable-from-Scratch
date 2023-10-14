@@ -3,7 +3,6 @@
 class Token{
     public:
         Token(std::string word, int index);
-        // ~Token();
         Token * get_next();
         int get_index();
         void set_index(int i);

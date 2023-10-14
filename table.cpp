@@ -5,20 +5,29 @@
 #include "slot.hpp"
 #include "table.hpp"
 Table::Table(int m){
+    // Dynamically allocate array to hold dynamically allocated linked lists
     _table = new Slot*[m];
     _m = m;
     for(int i{0}; i<_m; ++i){
         Slot * slot = new Slot(); 
         _table[i] = slot;
     }
-    std::string * _tokens = new std::string[m+1];
+    // Dynamically allocated array to hold words and act as a dictionary
+    _tokens = new std::string[m+1];
 }
 Table::~Table(){
+    // Delete all linked lists before deleting the array
     for(int i{0}; i<_m; ++i){
         
         delete _table[i];
         _table[i] = nullptr;
     }
+    
+    delete [] _table;
+    _table = nullptr;
+    
+    delete [] _tokens;
+    _tokens = nullptr;
 }
 int Table::string_to_key(std::string word){
     int key = 0;
@@ -31,14 +40,16 @@ int Table::string_to_key(std::string word){
 
 }
 void Table::resize_tokens(){
-    std::string * temp = _tokens;
+    // Allocate a new array of double the size and copy the elements of the old dictionary
     std:: string * new_tokens = new std::string[_count*2];
     for(int i{1}; i <_count; ++i){
         new_tokens[i] = _tokens[i];
     }
-    delete [] temp;
-    temp = nullptr;
+   
+    delete [] _tokens;
+
     _tokens = new_tokens;
+
 }
 
 std::string Table::add_to_table(std::string word){
@@ -62,6 +73,7 @@ std::string Table::add_to_table(std::string word){
 
 }
 int Table::tokenize(std::string word){
+    // Return index of a word in a dictionary
     int slot_index = hash(string_to_key(word));
     Slot * slot = _table[slot_index];
     Token * cur  = slot->get_head();
@@ -74,10 +86,8 @@ int Table::tokenize(std::string word){
     return 0;
 }
 
-
-
-
 std::string Table::find(int t){
+    // Return word based on index in a dictionary
     if (t == 0 || t >= _count){
         return "UNKNOWN";  
     }
